@@ -1,1 +1,6 @@
 /data/database.json
+/data/current_items.json
+/data/enemies.json
+/data/equipments.json
+/data/items.json
+/data/player.json
