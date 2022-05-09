@@ -1,5 +1,4 @@
 
-
 class JsonOperations:
 
     @classmethod
@@ -25,57 +24,179 @@ class Initialization:
 
     @classmethod
     def do(cls):
+        pass
+
+
+class CreationPlayer:
+
+    @classmethod
+    def do(cls):
         import os.path
 
-        check_file = os.path.exists('data/database.json')
+        check_base = os.path.exists('data')
+        if not check_base:
+            os.mkdir('data')
+
+        check_file = os.path.exists('data/player.json')
+
         if not check_file:
 
-            database = {
-                'player': {
+            player = {
 
+                'name': '',
+
+                'location': '',
+
+                'character': {
+
+                    'strength': '5',
+                    'dexterity': '5',
+                    'intellect': '5',
+                    'constitution': '5',
+                    'will': '5',
+
+                },
+
+
+                'skills': {
+
+                    'swords': '0',
+                    'axes': '0',
+                    'spears': '0',
+                    'hummers': '0',
+
+                },
+
+                'status': {
+
+                    'max_health': '',
+                    'current_health': '',
+
+                    'max_stamina': '',
+                    'current_stamina': '',
+
+                    'focus': '',
+                    'speed': '',
+
+                    'alive': 'False'
+                },
+            }
+
+            JsonOperations.save('database', player)
+
+
+class CreationEnemies:
+
+    @classmethod
+    def do(cls):
+        import os.path
+
+        check_base = os.path.exists('data')
+        if not check_base:
+            os.mkdir('data')
+
+        check_file = os.path.exists('data/enemies.json')
+
+        if not check_file:
+            enemies = {
+
+                '0': {
                     'name': '',
-
+                    'equipment_id': '',
                     'location': '',
 
                     'character': {
 
-                        'strength': '5',
-                        'dexterity': '5',
-                        'intellect': '5',
-                        'constitution': '5',
-                        'will': '5',
+                         'strength': '5',
+                         'dexterity': '5',
+                         'intellect': '5',
+                         'constitution': '5',
+                         'will': '5',
 
-                    },
-
+                     },
 
                     'skills': {
 
-                        'swords': '0',
-                        'axes': '0',
-                        'spears': '0',
-                        'hummers': '0',
+                         'swords': '0',
+                         'axes': '0',
+                         'spears': '0',
+                         'hummers': '0',
 
-                    },
+                     },
 
                     'status': {
 
-                        'max_health': '',
-                        'current_health': '',
+                         'max_health': '',
+                         'current_health': '',
 
-                        'max_stamina': '',
-                        'current_stamina': '',
+                         'max_stamina': '',
+                         'current_stamina': '',
 
-                        'focus': '',
-                        'speed': '',
+                         'focus': '',
+                         'speed': '',
 
-                    },
-
-                },
-
+                     },
+                 },
             }
 
-            JsonOperations.save('database.json', database)
+            JsonOperations.save('database', enemies)
 
+
+class CreationEquipments:
+
+    @classmethod
+    def do(cls):
+        import os.path
+
+        check_base = os.path.exists('data')
+        if not check_base:
+            os.mkdir('data')
+
+        check_file = os.path.exists('data/equipments.json')
+
+        if not check_file:
+            equipments = {
+                'equipment_id': {
+
+                    'head': '',
+                    'body': '',
+                    'arms': '',
+                    'legs': ''
+
+                },
+            }
+
+            JsonOperations.save('database', equipments)
+
+
+class CreationItems:
+
+    @classmethod
+    def do(cls):
+        import os.path
+
+        check_base = os.path.exists('data')
+        if not check_base:
+            os.mkdir('data')
+
+        check_file = os.path.exists('data/items.json')
+
+        if not check_file:
+            items = {
+                'equipment_id': {
+
+                    'first_weapon': '',
+                    'second_weapon': '',
+
+                    'head': '',
+                    'body': '',
+                    'arms': '',
+                    'legs': ''
+
+                },
+            }
+
+            JsonOperations.save('database', items)
 
 
 class MainMenu:
@@ -90,7 +211,6 @@ class CreationCharacter:
     @classmethod
     def do(cls):
         pass
-
 
 
 class FightStarter:
