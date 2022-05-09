@@ -24,7 +24,12 @@ class Initialization:
 
     @classmethod
     def do(cls):
-        pass
+
+        CreationPlayer.do()
+        CreationEnemies.do()
+        CreationCurrentItems.do()
+        CreationItems.do()
+        CreationEquipments.do()
 
 
 class CreationPlayer:
@@ -42,7 +47,7 @@ class CreationPlayer:
         if not check_file:
 
             player = CreationPlayer.get()
-            JsonOperations.save('database', player)
+            JsonOperations.save('player', player)
 
     @classmethod
     def get(cls):
@@ -104,7 +109,7 @@ class CreationEnemies:
 
             }
 
-            JsonOperations.save('database', enemies)
+            JsonOperations.save('enemies', enemies)
 
     @classmethod
     def get(cls):
@@ -167,7 +172,7 @@ class CreationEquipments:
 
             }
 
-            JsonOperations.save('database', equipments)
+            JsonOperations.save('equipments', equipments)
 
     @classmethod
     def get(cls):
@@ -204,7 +209,7 @@ class CreationCurrentItems:
         if not check_file:
             current_items = {}
 
-            JsonOperations.save('database', current_items)
+            JsonOperations.save('current_items', current_items)
 
 
 class CreationItems:
@@ -224,7 +229,7 @@ class CreationItems:
 
             }
 
-            JsonOperations.save('database', items)
+            JsonOperations.save('items', items)
 
     @classmethod
     def get(cls):
