@@ -235,7 +235,7 @@ class CreationItems:
     def get(cls):
         return {
 
-                    'type': '',
+                    'item_type': '',
 
                     'armor_type': '',
                     'weapon_type': '',
@@ -262,11 +262,42 @@ class MainMenu:
         pass
 
 
-class CreationCharacter:
+class NewCharacter:
 
     @classmethod
     def do(cls):
         pass
+
+
+class NewItem:
+
+    @classmethod
+    def do(cls, item_type, armor_type, weapon_type, pierce_attack_damage, slash_attack_damage, blunt_attack_damage,
+           mental_attack_damage, pierce_attack_resist, slash_attack_resist, blunt_attack_resist, mental_attack_resist,
+           durability, weight):
+
+        item = CreationItems.get()
+
+        item['type'] = item_type
+        item['armor_type'] = armor_type
+        item['weapon_type'] = weapon_type
+        item['pierce_attack_damage'] = pierce_attack_damage
+        item['slash_attack_damage'] = slash_attack_damage
+        item['blunt_attack_damage'] = blunt_attack_damage
+        item['mental_attack_damage'] = mental_attack_damage
+        item['pierce_attack_resist'] = pierce_attack_resist
+        item['slash_attack_resist'] = slash_attack_resist
+        item['blunt_attack_resist'] = blunt_attack_resist
+        item['mental_attack_resist'] = mental_attack_resist
+        item['durability'] = durability
+        item['weight'] = weight
+
+        items = JsonOperations.read('items')
+
+        item_id = str(len(items) + 1)
+        items[item_id] = item
+
+        JsonOperations.save('items', items)
 
 
 class FightStarter:
