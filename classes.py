@@ -41,48 +41,50 @@ class CreationPlayer:
 
         if not check_file:
 
-            player = {
-
-                'name': '',
-
-                'location': '',
-
-                'character': {
-
-                    'strength': '5',
-                    'dexterity': '5',
-                    'intellect': '5',
-                    'constitution': '5',
-                    'will': '5',
-
-                },
-
-
-                'skills': {
-
-                    'swords': '0',
-                    'axes': '0',
-                    'spears': '0',
-                    'hummers': '0',
-
-                },
-
-                'status': {
-
-                    'max_health': '',
-                    'current_health': '',
-
-                    'max_stamina': '',
-                    'current_stamina': '',
-
-                    'focus': '',
-                    'speed': '',
-
-                    'alive': 'False'
-                },
-            }
-
+            player = CreationPlayer.get()
             JsonOperations.save('database', player)
+
+    @classmethod
+    def get(cls):
+        return {
+
+            'name': '',
+
+            'location': '',
+
+            'character': {
+
+                'strength': '5',
+                'dexterity': '5',
+                'intellect': '5',
+                'constitution': '5',
+                'will': '5',
+
+            },
+
+            'skills': {
+
+                'swords': '0',
+                'axes': '0',
+                'spears': '0',
+                'hummers': '0',
+
+            },
+
+            'status': {
+
+                'max_health': '',
+                'current_health': '',
+
+                'max_stamina': '',
+                'current_stamina': '',
+
+                'focus': '',
+                'speed': '',
+
+                'alive': 'False'
+            },
+        }
 
 
 class CreationEnemies:
@@ -100,46 +102,50 @@ class CreationEnemies:
         if not check_file:
             enemies = {
 
-                '0': {
-                    'name': '',
-                    'equipment_id': '',
-                    'location': '',
-
-                    'character': {
-
-                         'strength': '5',
-                         'dexterity': '5',
-                         'intellect': '5',
-                         'constitution': '5',
-                         'will': '5',
-
-                     },
-
-                    'skills': {
-
-                         'swords': '0',
-                         'axes': '0',
-                         'spears': '0',
-                         'hummers': '0',
-
-                     },
-
-                    'status': {
-
-                         'max_health': '',
-                         'current_health': '',
-
-                         'max_stamina': '',
-                         'current_stamina': '',
-
-                         'focus': '',
-                         'speed': '',
-
-                     },
-                 },
             }
 
             JsonOperations.save('database', enemies)
+
+    @classmethod
+    def get(cls):
+
+        return {
+            'name': '',
+            'equipment_id': '1',
+            'location': '',
+
+            'character': {
+
+                'strength': '5',
+                'dexterity': '5',
+                'intellect': '5',
+                'constitution': '5',
+                'will': '5',
+
+            },
+
+            'skills': {
+
+                'swords': '0',
+                'axes': '0',
+                'spears': '0',
+                'hummers': '0',
+
+            },
+
+            'status': {
+
+                'max_health': '',
+                'current_health': '',
+
+                'max_stamina': '',
+                'current_stamina': '',
+
+                'focus': '',
+                'speed': '',
+
+            },
+        }
 
 
 class CreationEquipments:
@@ -156,17 +162,49 @@ class CreationEquipments:
 
         if not check_file:
             equipments = {
-                'equipment_id': {
+
+                '1': CreationEquipments.get()
+
+            }
+
+            JsonOperations.save('database', equipments)
+
+    @classmethod
+    def get(cls):
+
+        return {
+
+                    'first_weapon': '',
+                    'second_weapon': '',
 
                     'head': '',
                     'body': '',
                     'arms': '',
-                    'legs': ''
+                    'legs': '',
 
-                },
-            }
+                    'first_artifact': '',
+                    'second_artifact': '',
+                    'third_artifact': ''
 
-            JsonOperations.save('database', equipments)
+                }
+
+
+class CreationCurrentItems:
+
+    @classmethod
+    def do(cls):
+        import os.path
+
+        check_base = os.path.exists('data')
+        if not check_base:
+            os.mkdir('data')
+
+        check_file = os.path.exists('data/current_items.json')
+
+        if not check_file:
+            current_items = {}
+
+            JsonOperations.save('database', current_items)
 
 
 class CreationItems:
@@ -183,20 +221,33 @@ class CreationItems:
 
         if not check_file:
             items = {
-                'equipment_id': {
 
-                    'first_weapon': '',
-                    'second_weapon': '',
-
-                    'head': '',
-                    'body': '',
-                    'arms': '',
-                    'legs': ''
-
-                },
             }
 
             JsonOperations.save('database', items)
+
+    @classmethod
+    def get(cls):
+        return {
+
+                    'type': '',
+
+                    'armor_type': '',
+                    'weapon_type': '',
+
+                    'pierce_attack_damage': '',
+                    'slash_attack_damage': '',
+                    'blunt_attack_damage': '',
+                    'mental_attack_damage': '',
+
+                    'pierce_attack_resist': '',
+                    'slash_attack_resist': '',
+                    'blunt_attack_resist': '',
+                    'mental_attack_resist': '',
+
+                    'durability': '',
+                    'weight': ''
+                }
 
 
 class MainMenu:
