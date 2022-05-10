@@ -146,6 +146,9 @@ class CreationEnemies:
                 'max_stamina': '',
                 'current_stamina': '',
 
+                'favorite_position': '',
+                'current_position': '',
+
                 'focus': '',
                 'speed': '',
                 'logical': ''
@@ -236,10 +239,10 @@ class CreationItems:
     def get(cls):
         return {
 
+                    'name': '',
                     'item_type': '',
 
-                    'armor_type': '',
-                    'weapon_type': '',
+                    'slot_type': '',
 
                     'pierce_attack_damage': '',
                     'slash_attack_damage': '',
@@ -263,7 +266,7 @@ class MainMenu:
         pass
 
 
-class NewCharacter:
+class PlayerNew:
 
     @classmethod
     def do(cls):
@@ -276,6 +279,11 @@ class NewCharacter:
         current_intellect = int(player['character']['current_intellect'])
 
         player['name'] = input('Введите имя: ')
+
+        favorite_position = input('Какая ваша любимая позиция?')
+
+        player['status']['favorite_position'] = favorite_position
+        player['status']['current_position'] = favorite_position
 
         player['status']['max_health'] = str(current_constitution * 5)
         player['status']['current_health'] = str(current_constitution * 5)
@@ -290,18 +298,18 @@ class NewCharacter:
         JsonOperations.save('player', player)
 
 
-class NewItem:
+class ItemNew:
 
     @classmethod
-    def do(cls, item_type, armor_type, weapon_type, pierce_attack_damage, slash_attack_damage, blunt_attack_damage,
+    def do(cls, item_name, item_type, slot_type, pierce_attack_damage, slash_attack_damage, blunt_attack_damage,
            mental_attack_damage, pierce_attack_resist, slash_attack_resist, blunt_attack_resist, mental_attack_resist,
            durability, weight):
 
         item = CreationItems.get()
 
+        item['name'] = item_name
         item['type'] = item_type
-        item['armor_type'] = armor_type
-        item['weapon_type'] = weapon_type
+        item['slot_type'] = slot_type
         item['pierce_attack_damage'] = pierce_attack_damage
         item['slash_attack_damage'] = slash_attack_damage
         item['blunt_attack_damage'] = blunt_attack_damage
@@ -319,6 +327,54 @@ class NewItem:
         items[item_id] = item
 
         JsonOperations.save('items', items)
+
+
+class ItemCurrentNew:
+
+    @classmethod
+    def do(cls, name):
+
+        items = JsonOperations.read('items')
+        current_items = JsonOperations.read('current_items')
+
+        current_item_id = str(len(current_items) + 1)
+
+        current_items[current_item_id] = items[name]
+
+        return current_item_id
+
+
+class Maker:
+
+    @classmethod
+    def do(cls):
+        pass
+
+
+class ItemCreate(Maker):
+
+    @classmethod
+    def do(cls):
+        #              name      type     slot   pad  sad  bad  mad  par  sar  bar  mar   dur   wgh
+        # ItemNew.do('example', 'armor', 'head', '0', '0', '0', '0', '5', '5', '5', '5', '100', '3')
+        ItemNew.do('Кожаный шлем', 'armor', 'head', '0', '0', '0', '0', '5', '5', '5', '5', '100', '3')
+        ItemNew.do('Кожаная кираса', 'armor', 'body', '0', '0', '0', '0', '5', '5', '5', '5', '100', '3')
+        ItemNew.do('Кожаные перчатки', 'armor', 'arms', '0', '0', '0', '0', '5', '5', '5', '5', '100', '3')
+        ItemNew.do('Кожаные штаны', 'armor', 'legs', '0', '0', '0', '0', '5', '5', '5', '5', '100', '3')
+        ItemNew.do('Простой меч', 'weapon', 'first_weapon', '12', '18', '3', '5', '0', '0', '0', '0', '100', '1')
+
+
+class ItemCurrentCreateRandomForPlayer(Maker):
+
+    @classmethod
+    def do(cls):
+
+        from random import choice
+
+        items = JsonOperations.read('items')
+        name = choice(list(items.keys()))
+
+        return ItemCurrentNew.do(name)
 
 
 class FightStarter:
