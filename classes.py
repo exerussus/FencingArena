@@ -341,6 +341,8 @@ class ItemCurrentNew:
 
         current_items[current_item_id] = items[name]
 
+        JsonOperations.save('current_items', current_items)
+
         return current_item_id
 
 
@@ -362,6 +364,21 @@ class ItemCreate(Maker):
         ItemNew.do('Кожаные перчатки', 'armor', 'arms', '0', '0', '0', '0', '5', '5', '5', '5', '100', '3')
         ItemNew.do('Кожаные штаны', 'armor', 'legs', '0', '0', '0', '0', '5', '5', '5', '5', '100', '3')
         ItemNew.do('Простой меч', 'weapon', 'first_weapon', '12', '18', '3', '5', '0', '0', '0', '0', '100', '1')
+
+
+class ItemCurrentCreateStarterPackForPlayer:
+
+    @classmethod
+    def do(cls):
+        equipment = JsonOperations.read('equipment')
+
+        equipment['1']['head'] = ItemCurrentNew.do('Кожаный шлем')
+        equipment['1']['body'] = ItemCurrentNew.do('Кожаная кираса')
+        equipment['1']['arms'] = ItemCurrentNew.do('Кожаные перчатки')
+        equipment['1']['legs'] = ItemCurrentNew.do('Кожаные штаны')
+        equipment['1']['first_weapon'] = ItemCurrentNew.do('Простой меч')
+
+        JsonOperations.save('equipment', equipment)
 
 
 class ItemCurrentCreateRandomForPlayer(Maker):
