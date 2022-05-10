@@ -116,7 +116,7 @@ class CreationEnemies:
 
         return {
             'name': '',
-            'equipment_id': '1',
+            'equipment_id': '0',
             'location': '1',
 
             'character': {
@@ -366,7 +366,22 @@ class ItemCreate(Maker):
         ItemNew.do('Простой меч', 'weapon', 'first_weapon', '12', '18', '3', '5', '0', '0', '0', '0', '100', '1')
 
 
-class ItemCurrentCreateStarterPackForPlayer:
+class ItemCurrentCreateStarterPackForPlayer(Maker):
+
+    @classmethod
+    def do(cls):
+        equipment = JsonOperations.read('equipment')
+
+        equipment['0']['head'] = ItemCurrentNew.do('Кожаный шлем')
+        equipment['0']['body'] = ItemCurrentNew.do('Кожаная кираса')
+        equipment['0']['arms'] = ItemCurrentNew.do('Кожаные перчатки')
+        equipment['0']['legs'] = ItemCurrentNew.do('Кожаные штаны')
+        equipment['0']['first_weapon'] = ItemCurrentNew.do('Простой меч')
+
+        JsonOperations.save('equipment', equipment)
+
+
+class ItemCurrentCreateStarterPackForEnemy(Maker):
 
     @classmethod
     def do(cls):
