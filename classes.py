@@ -117,7 +117,7 @@ class CreationEnemies:
         return {
             'name': '',
             'equipment_id': '1',
-            'location': '',
+            'location': '1',
 
             'character': {
 
@@ -148,6 +148,7 @@ class CreationEnemies:
 
                 'focus': '',
                 'speed': '',
+                'logical': ''
 
             },
         }
@@ -266,7 +267,27 @@ class NewCharacter:
 
     @classmethod
     def do(cls):
-        pass
+        player = CreationPlayer.get()
+
+        current_constitution = int(player['character']['constitution'])
+        current_dexterity = int(player['character']['dexterity'])
+        current_strength = int(player['character']['strength'])
+        current_will = int(player['character']['will'])
+        current_intellect = int(player['character']['current_intellect'])
+
+        player['name'] = input('Введите имя: ')
+
+        player['status']['max_health'] = str(current_constitution * 5)
+        player['status']['current_health'] = str(current_constitution * 5)
+
+        player['status']['max_stamina'] = str(current_dexterity * 3 + current_constitution + current_will)
+        player['status']['current_stamina'] = str(current_dexterity * 3 + current_constitution + current_will)
+
+        player['status']['focus'] = str(current_constitution * 3 + current_will + current_dexterity)
+        player['status']['speed'] = str(current_strength * 4 + current_dexterity * 2 - current_constitution)
+        player['status']['logical'] = str(current_intellect * 4 + current_will)
+
+        JsonOperations.save('player', player)
 
 
 class NewItem:
