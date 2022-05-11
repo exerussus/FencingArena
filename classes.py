@@ -396,6 +396,13 @@ class ItemCurrentCreateStarterPackForEnemy(Maker):
         JsonOperations.save('equipment', equipment)
 
 
+class EnemyNew:
+
+    @classmethod
+    def do(cls):
+        pass
+
+
 class ItemCurrentCreateRandomForPlayer(Maker):
 
     @classmethod
